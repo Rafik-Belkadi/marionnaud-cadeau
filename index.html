@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux Anniversaire!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.5.1/confetti.browser.min.js"></script>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ffecd2);
+            overflow: hidden;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .gift-box {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            border: 10px solid #ff9ff3;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+            margin: 0 auto;
+        }
+        .gift-box:hover {
+            transform: scale(1.1);
+            animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        .gift-text {
+            font-size: 24px;
+            color: white;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .hidden {
+            display: none;
+        }
+        #message {
+            font-size: 24px;
+            color: #ff4757;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+            max-width: 100%;
+            margin-top: 20px;
+        }
+        .balloon {
+            position: absolute;
+            width: 100px;
+            height: 125px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: float 4s ease-in-out infinite;
+        }
+        .balloon:before {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.7);
+            top: 125px;
+            left: 45px;
+        }
+        @media (max-width: 600px) {
+            .gift-box {
+                width: 150px;
+                height: 150px;
+            }
+            .gift-text, #message {
+                font-size: 18px;
+            }
+            .balloon {
+                width: 60px;
+                height: 75px;
+            }
+            .balloon:before {
+                width: 6px;
+                height: 15px;
+                top: 75px;
+                left: 27px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="balloon" style="top: 10%; left: 10%;"></div>
+        <div class="balloon" style="top: 20%; right: 20%; animation-delay: 1s;"></div>
+        <div class="balloon" style="bottom: 15%; left: 30%; animation-delay: 2s;"></div>
+        <div class="gift-box" id="giftBox">
+            <p class="gift-text">Clique pour ta surprise!</p>
+        </div>
+        <div class="gift-text hidden" id="message">
+            Weeknd à Rome toi et moi du 11 au 13 septembre bébé! 🎉✈️🍕❤️
+        </div>
+    </div>
+
+    <script>
+        const giftBox = document.getElementById('giftBox');
+        const message = document.getElementById('message');
+
+        giftBox.addEventListener('click', () => {
+            giftBox.classList.add('hidden');
+            message.classList.remove('hidden');
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        });
+    </script>
+</body>
+</html>
